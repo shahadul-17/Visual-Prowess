@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1508694656 source:c:\users\shahadul alam\documents\codeblocks projects\broadcast-server\main.c
+	<pthread.h>
+	<stdio.h>
+	"utility.h"
+	"socket.h"
+
+1508691954 c:\users\shahadul alam\documents\codeblocks projects\broadcast-server\socket.h
+	<winsock2.h>
+	<ws2tcpip.h>
+
+1508692052 source:c:\users\shahadul alam\documents\codeblocks projects\broadcast-server\socket.c
+	"socket.h"
+
+1508692524 source:c:\users\shahadul alam\documents\codeblocks projects\broadcast-server\utility.c
+	"utility.h"
+
+1508692901 c:\users\shahadul alam\documents\codeblocks projects\broadcast-server\utility.h
+
+1508692052 source:c:\users\shahadul alam\documents\github repositories\smart-glass\broadcast-server\socket.c
+	"socket.h"
+
+1508691954 c:\users\shahadul alam\documents\github repositories\smart-glass\broadcast-server\socket.h
+	<winsock2.h>
+	<ws2tcpip.h>
+
+1509036927 source:c:\users\shahadul alam\documents\github repositories\smart-glass\broadcast-server\main.c
+	<pthread.h>
+	<stdio.h>
+	"utility.h"
+	"socket.h"
+
+1509036999 c:\users\shahadul alam\documents\github repositories\smart-glass\broadcast-server\utility.h
+	<string.h>
+
+1509037823 source:c:\users\shahadul alam\documents\github repositories\smart-glass\broadcast-server\utility.c
+	"utility.h"
+
