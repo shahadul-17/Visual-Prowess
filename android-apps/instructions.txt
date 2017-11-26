@@ -1,2 +1,0 @@
-android studio project(s) should be placed inside this folder.
-project names should be in lower case.

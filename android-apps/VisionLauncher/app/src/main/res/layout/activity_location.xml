@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3F51B5">
+
+
+    <TextView
+        android:id="@+id/locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/getLocationBtn"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        android:text="hello"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Current Location"
+        android:layout_centerInParent="true"
+        android:background="#FFFFFF"
+        android:padding="10dp"
+        android:id="@+id/getLocationBtn"/>
+
+
+</RelativeLayout>

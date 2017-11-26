@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="shafin.visionlauncher">
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/compass"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true"
+            android:theme="@style/AppTheme.Wallpaper">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <receiver android:name=".PowerConnectionReceiver">
+                <intent-filter>
+                    <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                    <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                </intent-filter>
+            </receiver>
+        </activity>
+        <activity
+            android:name=".AppsListActivity"
+            android:theme="@style/AppTheme.Wallpaper" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".MusicActivity" />
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <intent-filter>
+            <action android:name="android.intent.action.SCREEN_OFF" />
+            <action android:name="android.intent.action.SCREEN_ON" />
+        </intent-filter>
+
+        <activity android:name=".CallActivity" />
+
+        <service
+            android:name=".LocationService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".LocationActivity" />
+
+        <service
+            android:name=".SinchService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".IncomingCallScreenActivity" />
+        <activity android:name=".CallScreenActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".PlaceActivity" />
+        <activity android:name=".SMSActivity"></activity>
+    </application>
+
+</manifest>

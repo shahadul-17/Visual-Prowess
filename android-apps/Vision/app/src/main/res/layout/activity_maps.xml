@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="shafin.vision.MapsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:hint="Search Address"
+                android:textColor="@android:color/black"
+                android:background="@android:color/white"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Search"
+                android:layout_weight="1"
+
+                />
+            <Button
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:id="@+id/voiceButton"
+                android:background="@drawable/mic"
+                android:layout_weight="1"/>
+
+
+
+
+        </LinearLayout>
+
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="shafin.ltrack.MapsActivity" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
