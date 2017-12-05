@@ -20,7 +20,7 @@ import android.gesture.Gesture;
 import static android.view.GestureDetector.*;
 
 public class MusicActivity extends AppCompatActivity implements OnGestureListener,GestureDetector.OnDoubleTapListener {
-    TextView textView;
+    TextView textView,textView2;
 
     public GestureDetectorCompat gestureDetectorCompat;
 
@@ -41,9 +41,14 @@ public class MusicActivity extends AppCompatActivity implements OnGestureListene
        // Toast.makeText(getApplicationContext(),"",Toast.LENGTH_LONG).show();
 
         textView=(TextView)findViewById(R.id.textView);
+        textView2=(TextView)findViewById(R.id.textView2);
         gestureDetectorCompat=new GestureDetectorCompat(this,this);
         gestureDetectorCompat.setOnDoubleTapListener(this);
         textView.setText("Music Support");
+        textView2.setText("welcome to vision music support.   \n" +
+                "Tap the screen to play or pause music. Swipe Top for next music. \n" +
+                "Swipe down for previous music. \n" +
+                "Swipe from right to go back to main menu. \n");
 
 
 

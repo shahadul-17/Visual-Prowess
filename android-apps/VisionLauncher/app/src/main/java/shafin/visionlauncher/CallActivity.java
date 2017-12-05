@@ -25,7 +25,7 @@ import static android.view.GestureDetector.*;
 public class CallActivity extends SettingActivity implements OnGestureListener,GestureDetector.OnDoubleTapListener  {
 
 View view;
-    TextView textView;
+    TextView textView,textView2;
 
     public GestureDetectorCompat gestureDetectorCompat;
 
@@ -44,9 +44,13 @@ View view;
 
 
         textView=(TextView)findViewById(R.id.textView);
+        textView2=(TextView)findViewById(R.id.textView2);
         gestureDetectorCompat=new GestureDetectorCompat(this,this);
         gestureDetectorCompat.setOnDoubleTapListener(this);
-        textView.setText("Emergency Support");
+        textView.setText("Emergency Call Support");
+        textView2.setText("welcome to vision emergency support.  \n" +
+                "Double tap to call \n" +
+                "Swipe from right to go back to main menu \n");
 
         textToSpeech=new TextToSpeech(CallActivity.this, new TextToSpeech.OnInitListener() {
             @Override
