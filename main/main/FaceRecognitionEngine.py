@@ -15,12 +15,15 @@ class FaceRecognitionEngine:
 
         databasePath = Utility.getAbsolutePath("data\\face-recognition\\face-recognition-database.xml")
 
-        if cv2.__version__ >= "3.3.0":
-            self.faceRecognizer = cv2.face.LBPHFaceRecognizer_create()
-            self.faceRecognizer.read(databasePath)
-        else:
-            self.faceRecognizer = cv2.face.createLBPHFaceRecognizer()
-            self.faceRecognizer.load(databasePath)
+        if os.path.exists(databasePath):
+            print "DATABASE LOADED..."
+
+            if cv2.__version__ >= "3.3.0":
+                self.faceRecognizer = cv2.face.LBPHFaceRecognizer_create()
+                self.faceRecognizer.read(databasePath)
+            else:
+                self.faceRecognizer = cv2.face.createLBPHFaceRecognizer()
+                self.faceRecognizer.load(databasePath)
 
         self.rectangles = []        # list of valid rectangles...
 
@@ -56,7 +59,8 @@ class FaceRecognitionEngine:
     def addNewFace(self, ID, name, image):      # improvement needed...
         Utility.createDirectory(Utility.getAbsolutePath("data\\face-recognition\\faces\\" + name))
         
-        grayImage = ImageProcessor.convertImageToGray(image)
+        grayImage = ImageProcessor.convertImageToGrayscale(image)
+        cv2.equalizeHist(grayImage, grayImage);
         faces = self.detectFaces(grayImage)
         facesDetected = self.countFaces(faces)
 
@@ -85,7 +89,7 @@ class FaceRecognitionEngine:
 
             for _file in files:
                 image = ImageProcessor.loadImage(Utility.getAbsolutePath("data\\face-recognition\\faces\\" + subdirectoryName + "\\" + _file))
-                grayImage = ImageProcessor.convertImageToGray(image)
+                grayImage = ImageProcessor.convertImageToGrayscale(image)
                 faces = self.detectFaces(grayImage)
                 facesDetected = self.countFaces(faces)
 
@@ -104,14 +108,20 @@ class FaceRecognitionEngine:
         # loop ends here...
 
         faceRecognizer.train(listFaces, numpy.array(listIDs))
-        faceRecognizer.save(Utility.getAbsolutePath("data\\face-recognition\\face-recognition-database.xml"))
+
+        if cv2.__version__ >= "3.3.0":
+            faceRecognizer.write(Utility.getAbsolutePath("data\\face-recognition\\face-recognition-database.xml"))
+        else:
+            faceRecognizer.save(Utility.getAbsolutePath("data\\face-recognition\\face-recognition-database.xml"))
 
         print "operation completed successfully..."
     
-    def recognizeFaces(self, image):
+    def recognize(self, image):
         names = os.listdir(Utility.getAbsolutePath("data\\face-recognition\\faces"))
-        grayImage = ImageProcessor.convertImageToGray(image)
-        faces = self.detectFaces(grayImage)
+
+        cv2.equalizeHist(image, image);
+
+        faces = self.detectFaces(image)
         facesDetected = self.countFaces(faces)
 
         del self.rectangles[:]      # clearing the list "rectangles"...
@@ -126,17 +136,20 @@ class FaceRecognitionEngine:
 
                 self.rectangles.append(rectangle)
 
-                grayImage = ImageProcessor.resizeImage(200, grayImage[y:(y + height), x:(x + width)])
+                if image is not None:
+                    image = image[y:(y + height), x:(x + width)]
+                    image = ImageProcessor.resizeImage(200, image)
 
-                if cv2.__version__ <= "3.1.0":
-                    self.faceRecognizer.predict(grayImage, self.predictCollector)
+                    if image is not None:
+                        if cv2.__version__ <= "3.1.0":
+                            self.faceRecognizer.predict(image, self.predictCollector)
 
-                    ID = self.predictCollector.getLabel()
-                    confidence = self.predictCollector.getDist()
-                else:
-                    ID, confidence = self.faceRecognizer.predict(grayImage)
+                            ID = self.predictCollector.getLabel()
+                            confidence = self.predictCollector.getDist()
+                        else:
+                            ID, confidence = self.faceRecognizer.predict(image)
                 
-                if confidence < 50.0:
-                    print "The person is '" + names[ID] + "' with ID = " + str(ID) + " with confidence = " + str(confidence)
-                else:
-                    print "The person is Unknown..."
+                        if confidence < 50.0:
+                            print "The person is '" + names[ID] + "' with ID = " + str(ID) + " with confidence = " + str(confidence)
+                        #else:
+                            #print "The person is Unknown..."

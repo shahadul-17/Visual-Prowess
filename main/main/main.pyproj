@@ -31,6 +31,9 @@
     <Compile Include="OCREngine.py" />
     <None Include="old\OCREngine.py" />
     <Compile Include="Rectangle.py" />
+    <Compile Include="TextToSpeech.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utility.py" />
   </ItemGroup>
   <ItemGroup>

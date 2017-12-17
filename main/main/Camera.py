@@ -1,6 +1,6 @@
 import cv2
-import time
 
+from ImageProcessor import ImageProcessor
 from Utility import Utility
 
 try:            # adding support for Raspberry Pi...
@@ -22,12 +22,13 @@ class Camera:
 
         self.isStarted = True
         self.image = None
+        self.grayscale = None
         self.rectangleMatrix = []        # 2D list of "rectangle" objects...
 
         if Utility.hasPiCamera:
             camera = PiCamera()
             camera.resolution = (640, 480)
-            camera.framerate = 32
+            camera.framerate = 16
 
             self.rgbArray = PiRGBArray(camera, size = camera.resolution)
             self.iterator = camera.capture_continuous(self.rgbArray, format = "bgr", use_video_port = True)
@@ -36,12 +37,6 @@ class Camera:
         
         print "camera initialized successfully..."
 
-    def __showPreview(self, title, image):
-        cv2.imshow(title, image)
-
-        if cv2.waitKey(1) == 27:
-            self.stop()
-    
     def __drawRectangle(self, rectangleMatrix, image):
         for rectangles in rectangleMatrix:
             for rectangle in rectangles:
@@ -58,23 +53,29 @@ class Camera:
 
         if Utility.hasPiCamera:
             for i in self.iterator:
+                self.image = i.array
+                self.grayscale = ImageProcessor.convertImageToGrayscale(self.image)
                 self.image = self.__drawRectangle(self.rectangleMatrix, i.array)
-                
+
                 self.rgbArray.truncate(0)
-                self.__showPreview(Utility.title, self.image)
+                ImageProcessor.showPreview(Utility.title, self.image)
+
+                if cv2.waitKey(1) == 27:
+                    self.stop()
 
                 if self.isStarted == False:
                     break
-
-                time.sleep(0.20)    # sleep for 20 milliseconds...
         else:
             while self.isStarted:
                 framesGrabbed, self.image = camera.read(0)
+                self.grayscale = ImageProcessor.convertImageToGrayscale(self.image);
                 self.image = self.__drawRectangle(self.rectangleMatrix, self.image)
                 
-                self.__showPreview(Utility.title, self.image)
-                time.sleep(0.20)    # sleep for 20 milliseconds...
-    
+                ImageProcessor.showPreview(Utility.title, self.image)
+                
+                if cv2.waitKey(1) == 27:
+                    self.stop()
+
     def stop(self):
         print "stopping camera..."
 

@@ -12,15 +12,25 @@ class ImageProcessor:
         return cv2.imwrite(path, image)
     
     @staticmethod
-    def convertImageToGray(image):
+    def showPreview(title, image):
+        cv2.imshow(title, image)
+
+    @staticmethod
+    def convertImageToGrayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     @staticmethod
     def resizeImage(width, image):
-        ratio = (width * 1.0) / image.shape[1]
-        dimension = (width, int(image.shape[0] * ratio))
-        
-        return cv2.resize(image, dimension, interpolation = cv2.INTER_AREA)
+        try:
+            ratio = (width * 1.0) / image.shape[1]
+            height = int(image.shape[0] * ratio)
+
+            if height == 0:
+                return None
+
+            return cv2.resize(image, (width, height), interpolation = cv2.INTER_AREA)
+        except ZeroDivisionError:
+            return None
 
     @staticmethod
     def getBufferFromImage(image):
